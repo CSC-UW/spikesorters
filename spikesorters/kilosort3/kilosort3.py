@@ -200,8 +200,9 @@ class Kilosort3Sorter(BaseSorter):
             with (output_folder / fname).open('w') as f:
                 f.write(txt)
 
-        shutil.copy(str(source_dir.parent / 'utils' / 'writeNPY.m'), str(output_folder))
-        shutil.copy(str(source_dir.parent / 'utils' / 'constructNPYheader.m'), str(output_folder))
+        shutil.copyfile(str(source_dir.parent / 'utils' / 'writeNPY.m'), str(output_folder / 'writeNPY.m'))
+        shutil.copyfile(str(source_dir.parent / 'utils' / 'constructNPYheader.m'), str(output_folder / 'constructNPYheader.m'))
+
 
     def _run(self, recording, output_folder):
         recording = recover_recording(recording)

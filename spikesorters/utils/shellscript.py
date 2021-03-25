@@ -34,6 +34,7 @@ class ShellScript():
         self._dirs_to_remove: List[str] = []
         self._start_time: Optional[float] = None
         self._verbose = verbose
+        self._executable_script = True
 
     def __del__(self):
         self.cleanup()
@@ -48,7 +49,10 @@ class ShellScript():
             raise Exception('Cannot write script. No path specified')
         with open(script_path, 'w') as f:
             f.write(self._script)
-        os.chmod(script_path, 0o744)
+        try:
+            os.chmod(script_path, 0o744)
+        except PermissionError:
+            self._executable_script = False
 
     def start(self) -> None:
         if self._script_path is not None:
@@ -74,10 +78,21 @@ class ShellScript():
                 script_log_path = script_log_path.parent / (script_log_path.name + '.txt')
 
         self.write(script_path)
-        cmd = str(script_path)
-        print('RUNNING SHELL SCRIPT: ' + cmd)
+
+        # Deal with the case where `chmod +x script_path` raised a permission error
+        # darwin only
+        if self._executable_script:
+            cmd = str(script_path)
+        else:
+            if 'win' in sys.platform and sys.platform != 'darwin':
+                cmd = None
+                raise PermissionError(f"Can't run {script_path}: could not set permission")
+            else:
+                cmd = f"sh {script_path}"
+                # cmd = ["sh", str(script_path)]
+        print(f'RUNNING SHELL SCRIPT: {cmd}')
         self._start_time = time.time()
-        self._process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1,
+        self._process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1,
                                          universal_newlines=True)
         with open(script_log_path, 'w+') as script_log_file:
             for line in self._process.stdout:
