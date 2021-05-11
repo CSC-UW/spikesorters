@@ -21,6 +21,9 @@ try
     % Run the configuration file, it builds the structure of options (ops)
     run(fullfile('{config_path}'))
 
+    % Save plots
+    ops.plotDir = fullfile(fpath, 'plots_ks');
+
     ops.trange = [0 Inf]; % time range to sort
 
     % preprocess data to create temp_wh.dat
