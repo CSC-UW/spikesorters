@@ -1,4 +1,11 @@
 try
+    % https://github.com/MouseLand/Kilosort/issues/199#issuecomment-754971599
+    disp('Setting latest mkl version');
+    setenv('BLAS_VERSION', '/usr/lib/x86_64-linux-gnu/mkl/libblas.so');
+    setenv('LAPACK_VERSION', '/usr/lib/x86_64-linux-gnu/mkl/liblapack.so');
+    version -blas;
+    version -lapack;
+
     % prepare for kilosort execution
     addpath(genpath('{kilosort2_5_path}'));
 
