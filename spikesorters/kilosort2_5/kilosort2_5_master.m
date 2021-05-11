@@ -58,6 +58,13 @@ try
     % write to Phy
     fprintf('Saving results to Phy  \n')
     rezToPhy(rez, fullfile(fpath));
+
+    % Save drift
+    fprintf('Saving drift information. \n')
+    writeNPY(rez.dshift, fullfile(fpath, 'drift.npy'));
+    % Save pre-correction spike sorting
+    fprintf('Saving pre-drift sorting. \n')
+    writeNPY(rez.st0, fullfile(fpath, 'pre_correction_sorting.npy'));
 catch
     fprintf('----------------------------------------');
     fprintf(lasterr());
