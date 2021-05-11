@@ -63,8 +63,8 @@ class BaseSorter:
             output_folder = self.sorter_name + '_output'
         output_folder = Path(output_folder).absolute()
 
-        if output_folder.is_dir():
-            shutil.rmtree(str(output_folder))
+        # if output_folder.is_dir():
+        #     shutil.rmtree(str(output_folder))
 
         if grouping_property is None:
             # only one groups
