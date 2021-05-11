@@ -65,6 +65,16 @@ try
     % Save pre-correction spike sorting
     fprintf('Saving pre-drift sorting. \n')
     writeNPY(rez.st0, fullfile(fpath, 'pre_correction_sorting.npy'));
+    % Save drift fingerprints
+    fprintf('Saving drift fingerprintg. \n')
+    if(isa(rez.F, 'gpuArray'))
+        rez.F = gather(rez.F);
+    end
+    writeNPY(rez.F, fullfile(fpath, 'F.npy'));
+    if(isa(rez.F0, 'gpuArray'))
+        rez.F0 = gather(rez.F0);
+    end
+    writeNPY(rez.F0, fullfile(fpath, 'F0.npy'))
 catch
     fprintf('----------------------------------------');
     fprintf(lasterr());
