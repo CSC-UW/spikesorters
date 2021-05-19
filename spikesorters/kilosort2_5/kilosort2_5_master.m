@@ -65,6 +65,10 @@ try
     % Save pre-correction spike sorting
     fprintf('Saving pre-drift sorting. \n')
     writeNPY(rez.st0, fullfile(fpath, 'pre_correction_sorting.npy'));
+    if isfield(rez, 'st0_corrected')
+        fprintf('Saving post-drift correction sorting. \n')
+        writeNPY(rez.st0_corrected, fullfile(fpath, 'post_correction_sorting.npy'));
+    end
     % Save drift fingerprints
     fprintf('Saving drift fingerprintg. \n')
     if(isa(rez.F, 'gpuArray'))
