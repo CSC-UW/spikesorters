@@ -17,6 +17,8 @@ ops.minfr_goodchannels = {minfr_goodchannels};
 
 % number of blocks to use for nonrigid registration
 ops.nblocks = {nblocks};
+% Actually drift-correct data on file
+ops.do_correction = {do_correction};
 
 % spatial smoothness constant for registration
 ops.sig = {sig};
