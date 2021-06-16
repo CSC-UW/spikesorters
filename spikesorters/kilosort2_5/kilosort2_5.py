@@ -145,6 +145,10 @@ class Kilosort2_5Sorter(BaseSorter):
             use_car = 1
         else:
             use_car = 0
+        if p['do_correction']:
+            do_correction = 1
+        else:
+            do_correction = 0
 
         # read the template txt files
         with (source_dir / 'kilosort2_5_master.m').open('r') as f:
@@ -174,7 +178,7 @@ class Kilosort2_5Sorter(BaseSorter):
             sample_rate=recording.get_sampling_frequency(),
             dat_file=str((output_folder / 'recording.dat').absolute()),
             nblocks=p['nblocks'],
-            do_correction=p['do_correction'],
+            do_correction=do_correction,
             sig=p['sig'],
             projection_threshold=p['projection_threshold'],
             preclust_threshold=p['preclust_threshold'],
