@@ -27,7 +27,7 @@ ops.sig = {sig};
 ops.Th = {projection_threshold};
 
 % how important is the amplitude penalty (like in Kilosort1, 0 means not used, 10 is average, 50 is a lot) 
-ops.lam = 10;  
+ops.lam = {lam};  
 
 % splitting a cluster at the end requires at least this much isolation for each sub-cluster (max = 1)
 ops.AUCsplit = 0.9; 
